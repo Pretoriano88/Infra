@@ -31,7 +31,7 @@ Este projeto apresenta uma infraestrutura para hospedar um site WordPress com al
 ### Passo 1: Clonar o Repositório
 Faça o download do código do projeto:
 ```bash
-$ git clone https://github.com/Pretoriano88/Infra_WP.git
+$ git clone https://github.com/Pretoriano88/Infra
 $ cd Infra_WP/terraform
 ```
 
