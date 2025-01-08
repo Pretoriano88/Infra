@@ -4,6 +4,9 @@ variable "region" {
 variable "myip" {
   default = "177.30.73.144"
 }
+variable "sns-email" {
+  default = "teste@hotmail.com"
+}
 // ec2 
 
 variable "ami" {
@@ -71,3 +74,4 @@ variable "multi_az" {
   description = "RDS Multi Avaiable zone"
   type        = bool
 }
+

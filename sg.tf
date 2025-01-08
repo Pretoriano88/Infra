@@ -8,7 +8,7 @@ resource "aws_security_group" "sc_ec2" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${var.myip}/32"]
   }
 
 
@@ -91,8 +91,8 @@ resource "aws_security_group" "sc_autoscalling" {
   }
 }
 
-resource "aws_security_group" "sc_rdp" {
-  name        = "SG RDP"
+resource "aws_security_group" "sc_db" {
+  name        = "SG db"
   description = "Allow mysql 3306 to autoscalling"
   vpc_id      = aws_vpc.main.id
 
@@ -221,7 +221,7 @@ resource "aws_security_group" "memcached_sg" {
     from_port   = 11211
     to_port     = 11211
     protocol    = "tcp"
-    security_groups = [ aws_security_group.sc_rdp.id ]
+    security_groups = [ aws_security_group.sc_db.id ]
   }
 
   // Regra de saída para permitir todo o tráfego

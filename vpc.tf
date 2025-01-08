@@ -114,7 +114,7 @@ resource "aws_route_table" "private_route_table" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_gateway.id # Rota padrão para o NAT Gateway
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id # Default rout to NAT Gateway
   }
   tags = {
     Name = "Private_Route_Table"
