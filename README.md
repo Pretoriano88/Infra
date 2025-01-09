@@ -32,11 +32,12 @@ Este projeto apresenta uma infraestrutura para hospedar um site WordPress com al
 Faça o download do código do projeto:
 ```bash
 $ git clone https://github.com/Pretoriano88/Infra
-$ cd Infra_WP/terraform
+$ cd Infra/terraform
 ```
 
 ### Passo 2: Configurar as Variáveis
 Edite o arquivo `terraforms.tfvars` para incluir informações como região, credenciais e e-mail para notificações do CloudWatch.
+
 I-Para poder acessar via SSH e acessar a pagina de configuração do pritunl, adicione o seu ip público atual (acesse https://nordvpn.com/pt-br/what-is-my-ip/ e copie o ip que está no campo  "Qual é meu IP? ") na variavel myip dentro do arquivo tfvars
 
 II- Altere a variavel enviroment, conforme seu ambiente (Impactará nas tags, Ex: ec2_docker-<enviroment> ) 
@@ -55,7 +56,7 @@ Prepare o ambiente do Terraform:
 ```bash
 $ terraform init
 ```
-### Se não quiser usar algum recurso, basta apenas comentar usando /* */ no main, para que o terraform não chame determinado modulo, lembrando que alguns modeulos dependem do outro, exemplo: modulo autoscaling+template depende do modulo Rds  
+### Se não quiser usar algum recurso, basta apenas comentar usando /* */ no main, para que o terraform não chame determinado resource, lembrando que alguns resources dependem do outro, exemplo: modulo autoscaling+template depende do modulo Rds  
 
 ### Passo 4: Planejar a Infraestrutura
 Verifique os recursos que serão criados:
@@ -70,14 +71,8 @@ $ terraform apply -var-file="terraform.tfvars"
 ```
 Confirme a execução digitando `yes` quando solicitado.
 
-Caso queira subir somente alguns modulos é possivel usando o comando 
-```bash
-$ terraform apply -target=module.autoscaling_template -target=module.rds -target=module.vpc -target=module.efs -target=module.loadbalancer
-```
-Confirme a execução digitando `yes` quando solicitado.
-
 ### Passo 6: Validar o WordPress
-Após o provisionamento, acesse o IP público da instância pelo navegador para validar o funcionamento do WordPress.
+Após o provisionamento, acesse o endereço DNS do LoadBalancer pelo navegador para validar o funcionamento do WordPress.
 
 ## Configuração da VPN com Pritunl
 1. Acesse a instância que hospeda o Pritunl:
@@ -109,8 +104,9 @@ Confirme a execução digitando `yes` quando solicitado.
 
 ## Observações Finais
 
-## Para evitar custos desnecessários, comente o código do modulo **elasticache** ou o modulo que não irá usar
+## Para evitar custos desnecessários, comente o resource **elasticache** ou outro que não irá usar . 
 
+Estrutura da Ifra 
 ![alt text](image.png)
 
  
