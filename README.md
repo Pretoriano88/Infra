@@ -56,7 +56,7 @@ Prepare o ambiente do Terraform:
 ```bash
 $ terraform init
 ```
-### Se não quiser usar algum recurso, basta apenas comentar usando /* */ no main, para que o terraform não chame determinado resource, lembrando que alguns resources dependem do outro, exemplo: modulo autoscaling+template depende do modulo Rds  
+### Se não quiser usar algum recurso, basta apenas comentar usando /* */ no main, para que o terraform não chame determinado resource, lembrando que alguns resources dependem do outro, exemplo: Resource autoscaling+template depende do resource Rds  
 
 ### Passo 4: Planejar a Infraestrutura
 Verifique os recursos que serão criados:

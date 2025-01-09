@@ -1,12 +1,23 @@
-variable "region" {
-  default = "us-east-1"
-}
 variable "myip" {
-  default = "177.30.73.144"
 }
 variable "sns-email" {
-  default = "teste@hotmail.com"
+
 }
+
+variable "region" {
+ 
+}
+variable "cidr_vpc" {
+  
+}
+variable "enable_dns_hostnames" {
+  
+}
+variable "enable_dns_support" {
+  
+}
+
+
 // ec2 
 
 variable "ami" {
