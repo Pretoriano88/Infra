@@ -28,8 +28,8 @@ resource "aws_cloudwatch_metric_alarm" "cpu_utilization_alarm" {
   }
 
   actions_enabled = true
-  alarm_actions   = [aws_autoscaling_policy.scale_out_policy.arn]
-  ok_actions      = [aws_autoscaling_policy.scale_in_policy.arn]
+  alarm_actions   = [aws_autoscaling_policy.scale_up_policy.arn]
+  ok_actions      = [aws_autoscaling_policy.scale_down_policy.arn]
 }
 
 # Alarme CPU para RDS
@@ -61,7 +61,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_memory_utilization_alarm" {
   namespace           = "AWS/RDS"
   period              = 120
   statistic           = "Average"
-  threshold           = 50000000  # Exemplo: 50 MB de memória disponível
+  threshold           = 50000000 # Exemplo: 50 MB de memória disponível
 
   alarm_description = "Low available memory alarm for RDS instances"
   dimensions = {
@@ -81,7 +81,7 @@ resource "aws_cloudwatch_metric_alarm" "memcached_memory_utilization_alarm" {
   namespace           = "AWS/ElastiCache"
   period              = 120
   statistic           = "Average"
-  threshold           = 10000000  # Exemplo: 10 MB de memória disponível
+  threshold           = 10000000 # Exemplo: 10 MB de memória disponível
 
   alarm_description = "Low available memory alarm for ElastiCache"
   dimensions = {

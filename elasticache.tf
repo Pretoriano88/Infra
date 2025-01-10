@@ -8,7 +8,7 @@ resource "aws_elasticache_cluster" "cache_cluster" {
   cluster_id           = "cluster-memcached"
   engine               = "memcached"
   node_type            = "cache.t3.micro"
-  num_cache_nodes      = 2
+  num_cache_nodes      = 1
   parameter_group_name = "default.memcached1.6"
   engine_version       = "1.6.22"
   port                 = 11211

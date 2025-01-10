@@ -29,7 +29,7 @@ resource "aws_security_group" "sc_autoscalling" {
   description = "Allow SSH, HTTP Autoscalling "
   vpc_id      = aws_vpc.main.id
 
-   ingress {
+  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -57,7 +57,7 @@ resource "aws_security_group" "sc_autoscalling" {
   }
 
   tags = {
-    Name = "allow_ssh_http_node"
+    Name = "allow_ssh_http_Lb"
   }
 }
 
