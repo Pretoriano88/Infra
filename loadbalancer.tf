@@ -20,7 +20,7 @@ resource "aws_lb_target_group" "tg_lb" {
     protocol            = "HTTP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher = "200-499"
+    matcher             = "200-499"
 
   }
 }

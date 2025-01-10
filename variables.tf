@@ -5,16 +5,20 @@ variable "sns-email" {
 }
 
 variable "region" {
- 
+  type        = string
+  description = "AWS region"
 }
 variable "cidr_vpc" {
-  
+  type        = string
+  description = "CIDR block for VPC"
 }
 variable "enable_dns_hostnames" {
-  
+  type        = bool
+  description = "Enable DNS hostnames in the VPC"
 }
 variable "enable_dns_support" {
-  
+  type        = bool
+  description = "Enable DNS support in the VPC"
 }
 
 
@@ -26,10 +30,12 @@ variable "ami" {
 
 }
 variable "instance_type" {
-
+  type        = string
+  description = "Type of EC2 instance"
 }
 variable "key_name" {
-
+  type        = string
+  description = "Name of the key pair for EC2"
 }
 
 // RDS variables 

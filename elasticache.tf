@@ -1,4 +1,9 @@
-/*
+
+resource "aws_elasticache_subnet_group" "this" {
+  name       = "subnetcached"
+  subnet_ids = [aws_subnet.sub_private_a.id]
+}
+
 resource "aws_elasticache_cluster" "cache_cluster" {
   cluster_id           = "cluster-memcached"
   engine               = "memcached"
@@ -9,7 +14,7 @@ resource "aws_elasticache_cluster" "cache_cluster" {
   port                 = 11211
   network_type         = "ipv4"
   security_group_ids   = [aws_security_group.memcached_sg.id]
-  subnet_group_name    = aws_db_subnet_group.rds_sn_group.name
+  subnet_group_name    = aws_elasticache_subnet_group.this.name
   apply_immediately    = true
 
   tags = {
@@ -17,4 +22,4 @@ resource "aws_elasticache_cluster" "cache_cluster" {
   }
 }
 
-*/
+

@@ -23,3 +23,21 @@ sudo mkdir -p /var/www/html/wp-content/uploads
 sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${efs_dns_name}:/ /var/www/html/wp-content/uploads
 echo "${efs_dns_name}:/ /var/www/html/wp-content/uploads nfs4 defaults,_netdev 0 0" | sudo tee -a /etc/fstab
 
+
+# Instalar WordPress CLI para facilitar a configuração
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp
+cd /var/www/html
+
+# Configurar o Memcached para usar o cluster
+
+sudo apt-get install -y php7.4-memcached memcached
+echo "session.save_handler = memcached" >> /etc/php/7.4/fpm/php.ini
+echo "session.save_path = '${elasticache_address}'" >> /etc/php/7.4/fpm/php.ini
+sudo systemctl restart php7.4-fpm
+
+# Configurar o WordPress para usar Memcached
+wp config set WP_CACHE true --path="/var/www/html/wordpress" --allow-root
+wp config set memcached_servers "array( 'default' => array( '${elasticache_address}' ) );" --path="/var/www/html/wordpress" --allow-root
+sudo systemctl restart php7.4-fpm  

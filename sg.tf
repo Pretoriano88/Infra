@@ -1,31 +1,3 @@
-resource "aws_security_group" "sc_ec2" {
-  name        = "SG EC2 "
-  description = "Allow ssh EC2"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["${var.myip}/32"]
-  }
-
-
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags = {
-    Name = "SG-EC2"
-  }
-}
-
 resource "aws_security_group" "sc_loadballancer" {
   name        = "SG LB "
   description = "Allow HTTP  all internet "
@@ -40,8 +12,6 @@ resource "aws_security_group" "sc_loadballancer" {
 
   }
 
-
-
   egress {
     from_port        = 0
     to_port          = 0
@@ -51,7 +21,7 @@ resource "aws_security_group" "sc_loadballancer" {
   }
 
   tags = {
-    Name = "allow_ssh_http_node"
+    Name = "SC LB "
   }
 }
 resource "aws_security_group" "sc_autoscalling" {
@@ -59,12 +29,12 @@ resource "aws_security_group" "sc_autoscalling" {
   description = "Allow SSH, HTTP Autoscalling "
   vpc_id      = aws_vpc.main.id
 
-  ingress {
-    description = "SSH"
+   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.main.cidr_block]
+    cidr_blocks = ["${var.myip}/32"]
+
   }
 
   ingress {
@@ -73,8 +43,8 @@ resource "aws_security_group" "sc_autoscalling" {
     to_port     = 80
     protocol    = "tcp"
 
-    security_groups = [ aws_security_group.sc_loadballancer.id ]
-    
+    security_groups = [aws_security_group.sc_loadballancer.id]
+
 
   }
 
@@ -103,7 +73,6 @@ resource "aws_security_group" "sc_db" {
     protocol        = "tcp"
     security_groups = [aws_security_group.sc_autoscalling.id]
   }
-
 
 
   egress {
@@ -218,10 +187,10 @@ resource "aws_security_group" "memcached_sg" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 11211
-    to_port     = 11211
-    protocol    = "tcp"
-    security_groups = [ aws_security_group.sc_db.id ]
+    from_port       = 11211
+    to_port         = 11211
+    protocol        = "tcp"
+    security_groups = [aws_security_group.sc_db.id]
   }
 
   // Regra de saída para permitir todo o tráfego

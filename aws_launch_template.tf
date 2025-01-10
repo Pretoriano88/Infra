@@ -28,11 +28,13 @@ resource "aws_launch_template" "wordpress_lt" {
 
   user_data = base64encode(
     templatefile("${path.module}/scripts/wordpress.sh", {
-      wp_db_name       = var.dbname,
-      wp_username      = var.user,
-      wp_user_password = var.password,
-      wp_db_host       = aws_db_instance.this.address
-      efs_dns_name     = aws_efs_file_system.foo.dns_name
+      wp_db_name          = var.dbname,
+      wp_username         = var.user,
+      wp_user_password    = var.password,
+      wp_db_host          = aws_db_instance.this.address
+      efs_dns_name        = aws_efs_file_system.foo.dns_name
+      elasticache_address = aws_elasticache_cluster.cache_cluster.cache_nodes[0].address
+
 
 
     })

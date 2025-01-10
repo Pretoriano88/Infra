@@ -14,7 +14,6 @@ resource "aws_db_instance" "this" {
   db_subnet_group_name   = aws_db_subnet_group.rds_sn_group.name
 
 
-  # Certificando que as alterações manuais de senha rds sejam ignoradas
   lifecycle {
     ignore_changes = [password]
   }
