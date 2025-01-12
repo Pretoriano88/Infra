@@ -107,7 +107,6 @@ Confirme a execução digitando `yes` quando solicitado.
 ## Para evitar custos desnecessários, comente o resource **elasticache** ou outro que não irá usar . 
 
 Estrutura da Ifra 
-![alt text](image.png)
 
  
 
